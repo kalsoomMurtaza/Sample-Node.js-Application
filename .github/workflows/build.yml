@@ -27,4 +27,10 @@ jobs:
 
       - name: SSH into server and set up environment
         run: |
+         ssh -v -o StrictHostKeyChecking=no ubuntu@54.226.133.80 <<EOF
+         cd /home/ubuntu/Sample-Node.js-Application
+         git pull
+         npm install
+         pm2 restart all || pm2 start npm --name "node-app" --start
+         EOF
        
