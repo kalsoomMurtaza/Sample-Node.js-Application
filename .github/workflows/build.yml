@@ -1,0 +1,36 @@
+name: Node.js CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # You can specify the Node.js version you want to use
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Start Application
+        run: |
+          npm start
+
+      - name: Test the application
+        run: |
+          sleep 5  # Wait for the app to start
+          curl http://localhost:3000  # Adjust the URL if needed (if using port 3000)
