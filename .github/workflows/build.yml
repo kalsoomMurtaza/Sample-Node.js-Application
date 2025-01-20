@@ -27,7 +27,7 @@ jobs:
 
       - name: SSH into server and set up environment
         run: |
-         ssh -v -o StrictHostKeyChecking=no ubuntu@54.226.133.80 <<EOF
+         ssh -v -o StrictHostKeyChecking=no ubuntu@59.103.97.247 <<EOF
          cd /home/kalsoom-sarfraz/Sample-Node.js-Application
          git pull
          npm install
