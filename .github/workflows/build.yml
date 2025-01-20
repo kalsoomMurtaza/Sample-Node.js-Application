@@ -14,32 +14,30 @@ jobs:
 
     services:
       mongo:
-        image: mongo:latest  # Using the official MongoDB image
+        image: mongo:latest  
         ports:
-          - 27017:27017  # Exposing the port
-        
+          - 27017:27017          
     steps:
-      # Step 1: Check out the code
+      
       - name: Check out code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js
+      
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # You can specify the Node.js version you want to use
+          node-version: '16'  # 
 
-      # Step 3: Install dependencies
+      
       - name: Install dependencies
         run: |
           npm install
 
-      # Step 4: Start the Node.js application
+      
       - name: Start Application
         run: |
           npm start
 
-      # Optional Step: Verify the app is running (basic check)
       - name: Test the application
         run: |
           sleep 5  # Wait for the app to start
