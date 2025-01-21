@@ -25,9 +25,9 @@ jobs:
 
       - name: SSH into server and set up environment
         run: |
-          ssh -o StrictHostKeyChecking=no kalsoom-sarfraz@192.168.217.128 << 'EOF'
-          cd /home/kalsoom-sarfraz/Sample-Node.js-Application
-          git pull origin master
-          npm install
-          pm2 restart all || pm2 start npm --name "node-app" -- start
-          EOF
+         ssh -o StrictHostKeyChecking=no kalsoom-sarfraz@192.168.217.128 << 'EOF'
+         cd /home/kalsoom-sarfraz/Sample-Node.js-Application || exit
+         git pull origin master
+         npm install
+         pm2 restart "node-app" || pm2 start npm --name "node-app" -- start
+         EOF
