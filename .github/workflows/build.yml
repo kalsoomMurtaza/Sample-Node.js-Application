@@ -21,8 +21,7 @@ jobs:
          mkdir -p ~/.ssh
          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
          chmod 600 ~/.ssh/id_ed25519
-          
-
+        
       - name: SSH into server and set up environment
         run: |
          ssh -v -o StrictHostKeyChecking=no kalsoom-sarfraz@192.168.217.128 <<EOF
