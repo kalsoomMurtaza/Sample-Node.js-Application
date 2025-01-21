@@ -11,26 +11,23 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-         
+
     steps:
-      
       - name: Check out code
         uses: actions/checkout@v3
 
-      
-      - name: Set up ssh key
-        run:  |
-         mkdir -p ~/.ssh
-         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-         chmod 600 ~/.ssh/id_ed25519
-        
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H 192.168.217.128 >> ~/.ssh/known_hosts
 
       - name: SSH into server and set up environment
         run: |
-         ssh -v -o StrictHostKeyChecking=no kalsoom-sarfraz@192.168.217.128 <<EOF
-         cd /home/kalsoom-sarfraz/Sample-Node.js-Application
-         git pull
-         npm install
-         pm2 restart all || pm2 start npm --name "node-app" --start
-         EOF
-       
+          ssh -o StrictHostKeyChecking=no kalsoom-sarfraz@192.168.217.128 << 'EOF'
+          cd /home/kalsoom-sarfraz/Sample-Node.js-Application || exit
+          git pull origin master
+          npm install
+          pm2 restart "node-app" || pm2 start npm --name "node-app" -- start
+          EOF
