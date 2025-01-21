@@ -21,7 +21,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-  
+          ssh-keyscan -H 192.168.217.128 >> ~/.ssh/known_hosts
 
       - name: SSH into server and set up environment
         run: |
@@ -29,5 +29,5 @@ jobs:
          cd /home/kalsoom-sarfraz/Sample-Node.js-Application || exit
          git pull origin master
          npm install
-         pm2 restart "node-app" || pm2 start npm --name "node-app" -- start
+         npm run build
          EOF
