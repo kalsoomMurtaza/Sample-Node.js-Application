@@ -29,5 +29,6 @@ jobs:
          cd /home/kalsoom-sarfraz/Sample-Node.js-Application 
          git pull origin master
          npm install
+         npm audit fix
          npm run build
          EOF
