@@ -21,7 +21,11 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
+          # Verify if the private key is set correctly
+          ls -la ~/.ssh
           ssh-keyscan -H 192.168.217.128 >> ~/.ssh/known_hosts
+          # Check the content of known_hosts
+          cat ~/.ssh/known_hosts
 
       - name: SSH into server and set up environment
         run: |
