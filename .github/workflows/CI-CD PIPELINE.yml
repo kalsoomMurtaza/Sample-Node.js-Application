@@ -19,8 +19,8 @@ jobs:
       - name: Log in to Docker
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Create Dockerfile
         run: |
@@ -33,13 +33,13 @@ jobs:
           echo 'CMD ["npm", "start"]' >> Dockerfile
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:latest .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest .
         
       - name: Push Docker image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
         
       - name: Run Docker container
-        run: docker run -d --name myapp -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+        run: docker run -d --name myapp -p 3000:3000 ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
 
       - name: Test application
         run: docker exec myapp npm test
