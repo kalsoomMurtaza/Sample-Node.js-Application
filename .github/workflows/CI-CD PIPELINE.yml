@@ -27,16 +27,16 @@ jobs:
           echo 'CMD ["npm", "start"]' >> Dockerfile
 
       - name: Build Docker image
-        run: docker build -t nodejs-app .
+        run: docker build -t myapp .
 
       - name: Run Docker container
-        run: docker run -d --name nodejs-app -p 3000:3000 nodejs-app
+        run: docker run -d --name myapp -p 3000:3000 myapp
 
       - name: Test application
-        run: docker exec nodejs-app npm test
+        run: docker exec myapp npm test
 
       - name: Stop and clean up container
         if: always()
         run: |
-          docker stop nodejs-app
-          docker rm nodejs-app
+          docker stop myapp
+          docker rm myapp
