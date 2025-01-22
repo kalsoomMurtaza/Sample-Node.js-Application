@@ -1,4 +1,4 @@
-name: Build Node.js Application
+name: Build Node.js Application with Pre-Built Docker Image
 
 on:
   push:
@@ -10,22 +10,27 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted  
- 
+    runs-on: self-hosted
+
     steps:
-     - name: Checkout code
-       uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      
-     - name: Set up Node.js
-       uses: actions/setup-node@v4.1.0
-       with:
-          node-version: 22  
-     - name: Install dependencies
-       run: npm install
-     
-     - name: Build application
-       run: npm start
+      - name: Install dependencies and start app in a container
+        run: |
+          docker run -d --name nodejs-app \
+            -v ${{ github.workspace }}:/app \
+            -w /app \
+            -p 3000:3000 \
+            node:22 \
+            sh -c "npm install && npm start"
 
-     
-    
+      - name: Test application
+        run: |
+          docker exec nodejs-app npm test
+
+      - name: Stop and clean up container
+        if: always()
+        run: |
+          docker stop nodejs-app
+          docker rm nodejs-app
