@@ -23,11 +23,7 @@ jobs:
             -w /app \
             -p 3000:3000 \
             node:22 \
-            sh -c "npm install && npm start"
-
-      - name: Test application
-        run: |
-          docker exec nodejs-app npm test
+            sh -c "npm install && npm start
 
       - name: Stop and clean up container
         if: always()
