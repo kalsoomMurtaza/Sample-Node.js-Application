@@ -1,4 +1,4 @@
-name: Build Node.js Application with Docker (No Dockerfile in Repo)
+name: Build Node.js Application with Docker
 
 on:
   push:
@@ -9,18 +9,19 @@ on:
       - master
 
 jobs:
-   push to registry:
-            build:
-            runs-on: self-hosted
+  push-to-registry:
+    runs-on: self-hosted
 
-            steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
-            - name: Log in to Docker
-            uses: docker/login-action@v2
-            with:
-            username: ${{ secrets.DOCKER_USERNAME }}
-            password: ${{ secrets.DOCKER_PASSWORD }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Create Dockerfile
         run: |
           echo "FROM node:22" > Dockerfile
@@ -32,10 +33,13 @@ jobs:
           echo 'CMD ["npm", "start"]' >> Dockerfile
 
       - name: Build Docker image
-        run: docker build -t myapp .
-
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:latest .
+        
+      - name: Push Docker image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+        
       - name: Run Docker container
-        run: docker run -d --name myapp -p 3000:3000 myapp
+        run: docker run -d --name myapp -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/myapp:latest
 
       - name: Test application
         run: docker exec myapp npm test
