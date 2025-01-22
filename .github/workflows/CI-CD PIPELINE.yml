@@ -1,0 +1,41 @@
+name: Build Node.js Application
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: self-hosted  
+  
+    steps:
+      # Step 1: Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: 18  
+      - name: Install dependencies
+        run: npm install
+
+      
+      - name: Run tests
+        run: npm test
+
+     
+      - name: Build application
+        run: npm run build
+
+     
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: ./build  
