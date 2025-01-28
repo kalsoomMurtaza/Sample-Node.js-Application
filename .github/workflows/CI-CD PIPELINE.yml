@@ -25,7 +25,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       # Step 3: Build the Docker image
-      - name: Build and push Docker image
+      - name: Build Docker image
         run: docker build -t ist-app .
-      - name: push to dockerhub
-        run: docker push kalsoomsarfraz/ist-app:latest
+
+      # Step 4: Tag and Push to Docker Hub
+      - name: Tag and Push Docker image
+        run: |
+          docker tag ist-app kalsoomsarfraz/ist-app:latest
+          docker push kalsoomsarfraz/ist-app:latest
