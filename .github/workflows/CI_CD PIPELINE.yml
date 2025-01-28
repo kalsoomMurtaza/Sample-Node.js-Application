@@ -10,7 +10,7 @@ on:
 
 jobs:
   # CI - Build and Push Docker image to Docker Hub
-  push-to-registry:
+  build:
     runs-on: self-hosted
 
     steps:
@@ -38,9 +38,8 @@ jobs:
       - name: Pull Docker image
         run: sudo docker pull kalsoomsarfraz/ist-app:latest
  
-
       # Step 3: Run a new Docker container with the latest image
       - name: Run Docker container
-        run: ||
-        sudo docker-compose down && docker compose up -d
-        sudo docker run -d -p 80:80 --name ist-app-container kalsoomsarfraz/ist-app
+        run: |
+         sudo docker-compose down && docker compose up -d
+         sudo docker run -d -p 80:80 --name ist-app-container kalsoomsarfraz/ist-app
