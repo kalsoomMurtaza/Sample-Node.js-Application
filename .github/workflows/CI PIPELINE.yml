@@ -1,4 +1,4 @@
-name: Build Node.js Application with Docker
+name: CI pipeline
 
 on:
   push:
