@@ -3,4 +3,4 @@ services:
   web:
     image: kalsoomsarfraz/ist-app:latest
     ports:
-      - "80:80"
+      - "8000:8000"
