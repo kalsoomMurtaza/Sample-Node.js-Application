@@ -28,4 +28,4 @@ jobs:
       - name: Build and push Docker image
         run: docker build -t Ist-App .
       - name: push to dockerhub
-        run: docker push kalsoomsarfraz/Ist-App:latest
+        run: docker push kalsoomsarfraz/ist-app:latest
