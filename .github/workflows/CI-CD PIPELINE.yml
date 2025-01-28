@@ -26,6 +26,6 @@ jobs:
 
       # Step 3: Build the Docker image
       - name: Build and push Docker image
-        run: docker build -t Ist-App .
+        run: docker build -t ist-app .
       - name: push to dockerhub
         run: docker push kalsoomsarfraz/ist-app:latest
