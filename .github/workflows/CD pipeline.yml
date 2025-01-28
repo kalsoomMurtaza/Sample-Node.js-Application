@@ -1,0 +1,25 @@
+name: CD pipeline
+
+on:
+  workflow_run:
+   workflows: ["CI pipeline"]
+   types:
+    -completed
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+     
+      - name: pull docker image
+        run: sudo docker pull kalsoomsarfraz/ist-app:latest
+
+      - name: Delete old docker container
+        run: sudo docker rm -f ist-app-container || true 
+        
+      - name: run docker container
+        run: sudo docker run -d -p 3000:3000 --name ist-app-container kalsoomsarfraz/ist-app
+
+      
+          
