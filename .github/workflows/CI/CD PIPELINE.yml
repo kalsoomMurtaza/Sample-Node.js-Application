@@ -1,4 +1,4 @@
-name: CI pipeline
+name: CI/CD pipeline
 
 on:
   push:
@@ -9,8 +9,9 @@ on:
       - master
 
 jobs:
+  # CI - Build and Push Docker image to Docker Hub
   push-to-registry:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       # Step 1: Checkout code
@@ -33,3 +34,20 @@ jobs:
         run: |
           docker tag ist-app kalsoomsarfraz/ist-app:latest
           docker push kalsoomsarfraz/ist-app:latest
+
+  # CD - Pull the Docker image and run the container
+  deploy-to-server:
+    runs-on: self-hosted
+
+    steps:
+      # Step 1: Pull the latest Docker image
+      - name: Pull Docker image
+        run: sudo docker pull kalsoomsarfraz/ist-app:latest
+
+      # Step 2: Remove old container if exists
+      - name: Delete old Docker container
+        run: sudo docker rm -f ist-app-container || true 
+
+      # Step 3: Run a new Docker container with the latest image
+      - name: Run Docker container
+        run: sudo docker run -d -p 80:80 --name ist-app-container kalsoomsarfraz/ist-app
