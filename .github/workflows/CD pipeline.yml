@@ -19,7 +19,7 @@ jobs:
         run: sudo docker rm -f ist-app-container || true 
         
       - name: run docker container
-        run: sudo docker run -d -p 3000:3000 --name ist-app-container kalsoomsarfraz/ist-app
+        run: sudo docker run -d -p 80:80 --name ist-app-container kalsoomsarfraz/ist-app
 
       
           
