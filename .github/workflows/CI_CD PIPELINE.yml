@@ -36,9 +36,9 @@ jobs:
 
       # Step 5: Pull Docker image
       - name: Pull Docker image
-        run: sudo docker pull kalsoomsarfraz/ist-app:latest
+        run: docker pull kalsoomsarfraz/ist-app:latest
 
 
       # Step 7: Run the new Docker container
       - name: Run Docker container
-        run: sudo docker-compose down && docker-compose up -d
+        run: docker run -d -p 8000:8000 kalsoomsarfraz/ist-app:latest
