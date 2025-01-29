@@ -4,4 +4,4 @@ services:
     image: kalsoomsarfraz/ist-app:latest
     ports:
       - "3000:3000"
-      restart: always
+    restart: always
