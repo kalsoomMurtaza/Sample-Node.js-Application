@@ -20,7 +20,7 @@ var handlebars = require('express-handlebars').create({
 var app = express();
 
 app.use(morgan('dev')); // log every request to the console
-mongoose.connect("mongodb://admin:secret@mongodb:27017/admin", {
+mongoose.connect("mongodb://admin:secret@13.60.44.53:27017/admin", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
