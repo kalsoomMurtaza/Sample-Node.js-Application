@@ -20,7 +20,10 @@ var handlebars = require('express-handlebars').create({
 var app = express();
 
 app.use(morgan('dev')); // log every request to the console
-mongoose.connect('mongodb://127.0.0.1:27017/samplenodejsapp')
+mongoose.connect("mongodb://admin:secret@mongodb:27017/admin", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 require('./src/middleware/passport')(passport);
 
